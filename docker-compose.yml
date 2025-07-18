@@ -1,0 +1,55 @@
+version: '3'
+services:
+  api:
+    restart: always
+    build: ./backend
+    image: ${API_IMAGE_NAME}
+    container_name: ${API_CONTAINER_NAME}
+    env_file:
+      - ./.env
+    command: python manage.py runserver 0.0.0.0:8000
+
+    ports:
+      - ${EXPOSED_API_PORT}:8000
+      - ${EXPOSED_API_DEBUG_PORT}:8005
+    volumes:
+      - ./backend:/app/
+      - ~/.ssh:/home/.ssh:ro
+    depends_on:
+      - db
+      - redis 
+
+  db:
+    restart: always
+    image: postgres:16.2
+    container_name: ${DB_CONTAINER_NAME}
+    env_file:
+      - ./.env
+    ports:
+      - ${EXPOSED_DB_PORT}:5432
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=${CONTAINER_DB_NAME}
+      - POSTGRES_USER=${CONTAINER_DB_USER}
+      - POSTGRES_PASSWORD=${CONTAINER_DB_PASSWORD}
+    
+  redis:
+    restart: always
+    image: redis:7.2.4-alpine
+    container_name: ${REDIS_CONTAINER_NAME}
+    ports:
+      - ${EXPOSED_REDIS_PORT}:6379
+
+  # celery:
+  #   restart: always
+  #   image: ${API_IMAGE_NAME}
+  #   command: celery -A backend worker -l info
+  #   container_name: ${CELERY_CONTAINER_NAME}
+  #   env_file:
+  #     - ./.env
+  #   volumes:
+  #     - ./school_backend:/app/
+  #   depends_on:
+  #     - redis
