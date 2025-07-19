@@ -3,26 +3,21 @@ from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 
 from brdc.models import (
-    AboutCampus,
+    AboutCategory,
+    AboutSection,
     Album,
     AlbumImage,
     Blog,
-    CampusBatch,
-    CampusChiefMessage,
     Carousel,
     CarouselItem,
+    Carrier,
     ContactUs,
-    Courses,
-    Download,
-    DownloadCategory,
-    Facility,
     Milestone,
-    OnlineAdmission,
+    Network,
     PopUp,
-    Student,
-    Suggestion,
+    ResourceAndMediaCategory,
+    ResourceAndMediaSection,
     Team,
-    Testimonial,
     VideoGallery,
 )
 
@@ -36,11 +31,6 @@ class CarouselItemAdminInline(admin.StackedInline):
 class CarouselAdmin(admin.ModelAdmin):
     list_display = ["id"]
     inlines = [CarouselItemAdminInline]
-
-
-@admin.register(Facility)
-class FacilityAdmin(admin.ModelAdmin):
-    list_display = ["id", "name"]
 
 
 class AlbumImageAdmin(admin.TabularInline):
@@ -79,62 +69,27 @@ class PopUpAdmin(admin.ModelAdmin):
     list_display = ["id", "name", "image"]
 
 
-@admin.register(CampusChiefMessage)
-class CampusChiefMessageAdmin(admin.ModelAdmin):
-    list_display = ["id", "heading", "title", "description", "author", "image"]
-
-
-@admin.register(Courses)
-class CoursesAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "image", "description"]
-
-
-@admin.register(Testimonial)
-class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "image", "description", "position"]
-
-
-@admin.register(Suggestion)
-class SuggestionAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "email", "phone_no", "description"]
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return True
-
-
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "name",
         "position",
-        "service",
+        "description",
         "image",
-        "is_management",
+        "is_bod_team",
         "is_administrative",
-        "is_staff",
-        "is_advisor",
     ]
 
 
-@admin.register(OnlineAdmission)
-class OnlineAdmissionAdmin(admin.ModelAdmin):
-    list_display = ["id", "link", "title"]
+@admin.register(Network)
+class NetworkAdmin(admin.ModelAdmin):
+    list_display = ["id", "name", "image"]
 
-    def has_add_permission(self, request):
-        return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return True
+@admin.register(Carrier)
+class CarrierAdmin(admin.ModelAdmin):
+    list_display = ["id", "name", "description", "upload_document"]
 
 
 @admin.register(Blog)
@@ -143,54 +98,82 @@ class BlogAdmin(SummernoteModelAdmin):
     list_display = ["id", "title", "author", "thumbnail", "created_at", "updated_at"]
 
 
-class StudentsAdmin(admin.StackedInline):
-    model = Student
-    min_num = 1
-    extra = 1
-
-
-@admin.register(CampusBatch)
-class CampusBatchAdmin(admin.ModelAdmin):
-    list_display = ["id", "name"]
-    inlines = [StudentsAdmin]
-
-
-@admin.register(AboutCampus)
-class AboutCampusAdmin(SummernoteModelAdmin):
-    summernote_fields = ("description",)
-    list_display = ["id", "title", "description", "image"]
-
-
-class DownloadForm(forms.ModelForm):
+class AboutSectionForm(forms.ModelForm):
     class Meta:
-        model = Download
+        model = AboutSection
         fields = "__all__"
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Enter Your Title"}),
         }
 
 
-class DownloadCategoryInline(admin.TabularInline):
-    model = DownloadCategory
+class AboutCategoryInline(admin.StackedInline):
+    model = AboutCategory
     extra = 1
-    fields = ("title", "attachment", "created_at")
+    fields = ("id", "description")
 
 
-@admin.register(Download)
-class DownloadAdmin(admin.ModelAdmin):
-    form = DownloadForm  # use custom form here
+@admin.register(AboutSection)
+class AboutSectionAdmin(admin.ModelAdmin):
+    form = AboutSectionForm  # use custom form here
     list_display = (
+        "id",
         "name",
-        "is_curriculum",
-        "is_report",
-        "is_form",
-        "is_notice",
-        "is_result",
-        "created_at",
+        "image",
+        "is_who_we_are",
+        "is_what_we_do",
     )
-    inlines = [DownloadCategoryInline]
+    inlines = [AboutCategoryInline]
 
 
 @admin.register(VideoGallery)
 class VideoGalleryAdmin(admin.ModelAdmin):
     list_display = ["id", "title", "video_link"]
+
+
+
+class ResourceAndMediaSectionForm(forms.ModelForm):
+    class Meta:
+        model = ResourceAndMediaSection
+        fields = '__all__'
+
+class ResourceAndMediaCategoryInline(admin.StackedInline):
+    model = ResourceAndMediaCategory
+    extra = 1
+
+@admin.register(ResourceAndMediaSection)
+class ResourceAndMediaSectionAdmin(admin.ModelAdmin):
+    form = ResourceAndMediaSectionForm
+    inlines = [ResourceAndMediaCategoryInline]
+
+
+
+
+# class ResourceAndMediaSectionForm(forms.ModelForm):
+#     class Meta:
+#         model = ResourceAndMediaSection
+#         fields = "__all__"
+#         widgets = {
+#             "name": forms.TextInput(attrs={"placeholder": "Enter Your Title"}),
+#         }
+
+
+# class ResourceAndMediaCategoryInline(admin.TabularInline):
+#     model = ResourceAndMediaCategory
+#     extra = 1
+#     fields = (
+#         "id",
+#         "name",
+#         "description",
+#         "upload_document",
+#     )
+
+
+# @admin.register(ResourceAndMediaSection)
+# class ResourceAndMediaSectionAdmin(admin.ModelAdmin):
+#     form = ResourceAndMediaSection  # use custom form here
+#     list_display = (
+#         "id",
+#         "name",
+#     )
+#     inlines = [ResourceAndMediaCategory]

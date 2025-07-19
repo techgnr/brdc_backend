@@ -1,26 +1,21 @@
 from rest_framework import serializers
 
 from brdc.models import (
-    AboutCampus,
+    AboutCategory,
+    AboutSection,
     Album,
     AlbumImage,
     Blog,
     Carousel,
     CarouselItem,
+    Carrier,
     ContactUs,
-    Courses,
-    Download,
-    DownloadCategory,
-    Facility,
     Milestone,
-    OnlineAdmission,
+    Network,
     PopUp,
-    CampusChiefMessage,
-    CampusBatch,
-    Student,
-    Suggestion,
+    ResourceAndMediaCategory,
+    ResourceAndMediaSection,
     Team,
-    Testimonial,
     VideoGallery,
 )
 
@@ -49,16 +44,10 @@ class CarouselSerilaizer(serializers.ModelSerializer):
         fields = ["id", "items"]
 
 
-class FacilitiesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Facility
-        fields = ["id", "name", "image", "description"]
-
-
 class MilestonesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Milestone
-        fields = ["id", "name", "count"]
+        fields = ["id", "name", "count", "is_reached", "is_statistics"]
 
 
 class AlbumImageSerializer(serializers.ModelSerializer):
@@ -75,6 +64,17 @@ class AlbumSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "description", "thumbnail", "images"]
 
 
+# for youtube video links
+class VideoGallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoGallery
+        fields = [
+            "id",
+            "title",
+            "video_link",
+        ]
+
+
 class ContactUsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactUs
@@ -85,30 +85,6 @@ class PopUpSerializer(serializers.ModelSerializer):
     class Meta:
         model = PopUp
         fields = ["id", "name", "image"]
-
-
-class CampusChiefMessageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CampusChiefMessage
-        fields = ["id", "heading", "title", "description", "author", "image"]
-
-
-class CourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Courses
-        fields = ["id", "name", "image", "description"]
-
-
-class TestimonialSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Testimonial
-        fields = ["id", "name", "image", "description", "position"]
-
-
-class SuggestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Suggestion
-        fields = ["id", "name", "email", "phone_no", "description"]
 
 
 class BlogSerializer(serializers.ModelSerializer):
@@ -132,71 +108,57 @@ class TeamSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "position",
-            "service",
+            "description",
             "image",
-            "is_management",
+            "is_bod_team",
             "is_administrative",
-            "is_staff",
-            "is_advisor",
         ]
 
 
-class OnlineAdmissionSerializer(serializers.ModelSerializer):
+class NetworkSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OnlineAdmission
-        fields = ["id", "link", "title"]
+        model = Network
+        fields = ["id", "name", "image"]
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class CarrierSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Student
-        fields = ["id", "name", "percentage", "image"]
+        model = Carrier
+        fields = ["id", "name", "description", "upload_document"]
 
 
-class CampusBatchSerializer(serializers.ModelSerializer):
-    students = StudentSerializer(many=True, read_only=True)
-
+class AboutCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = CampusBatch
-        fields = ["id", "name", "students"]
+        model = AboutCategory
+        fields = ["id", "description"]
 
 
-class AboutCampusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AboutCampus
-        fields = ["id", "title", "description", "image"]
-
-
-class DownloadCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DownloadCategory
-        fields = ["id", "title", "attachment", "created_at"]
-
-
-class DownloadSerializer(serializers.ModelSerializer):
-    categories = DownloadCategorySerializer(many=True)
+class AboutSectionSerializer(serializers.ModelSerializer):
+    categories = AboutCategorySerializer(many=False)
 
     class Meta:
-        model = Download
+        model = AboutSection
         fields = [
             "id",
             "name",
-            "is_curriculum",
-            "is_report",
-            "is_form",
-            "is_notice",
-            "created_at",
-            "is_result",
-            "categories",
+            "image",
+            "is_who_we_are",
+            "is_what_we_do",
         ]
 
 
-# for youtube video links
-class VideoGallerySerializer(serializers.ModelSerializer):
+class ResourceAndMediaCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = VideoGallery
+        model = ResourceAndMediaCategory
+        fields = ["id", "name", "description", "upload_document", "created_at"]
+
+
+class ResourceAndMediaSectionSerializer(serializers.ModelSerializer):
+    categories = ResourceAndMediaCategorySerializer(many=True)
+
+    class Meta:
+        model = ResourceAndMediaSection
         fields = [
             "id",
-            "title",
-            "video_link",
+            "name",
         ]
