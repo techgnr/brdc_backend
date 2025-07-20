@@ -112,7 +112,7 @@ class AboutCategoryInline(SummernoteInlineModelAdmin, admin.StackedInline):
     model = AboutCategory
     summernote_fields = ("description",)
     extra = 1
-    fields = ("id", "description")
+    fields = ("id", "intro", "description")
 
 
 @admin.register(AboutSection)
