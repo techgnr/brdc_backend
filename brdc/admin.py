@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
+from django_summernote.admin import SummernoteInlineModelAdmin  # ✅
 
 from brdc.models import (
     AboutCategory,
@@ -88,7 +89,7 @@ class NetworkAdmin(admin.ModelAdmin):
 
 
 @admin.register(Carrier)
-class CarrierAdmin(admin.ModelAdmin):
+class CarrierAdmin(SummernoteModelAdmin):
     list_display = ["id", "name", "description", "upload_document"]
 
 
@@ -107,8 +108,9 @@ class AboutSectionForm(forms.ModelForm):
         }
 
 
-class AboutCategoryInline(admin.StackedInline):
+class AboutCategoryInline(SummernoteInlineModelAdmin, admin.StackedInline):
     model = AboutCategory
+    summernote_fields = ("description",)
     extra = 1
     fields = ("id", "description")
 
@@ -131,49 +133,33 @@ class VideoGalleryAdmin(admin.ModelAdmin):
     list_display = ["id", "title", "video_link"]
 
 
-
 class ResourceAndMediaSectionForm(forms.ModelForm):
     class Meta:
         model = ResourceAndMediaSection
-        fields = '__all__'
+        fields = "__all__"
+        widgets = {
+            "name": forms.TextInput(attrs={"placeholder": "Enter Your Title"}),
+        }
 
-class ResourceAndMediaCategoryInline(admin.StackedInline):
+
+class ResourceAndMediaCategoryInline(SummernoteInlineModelAdmin, admin.StackedInline):
     model = ResourceAndMediaCategory
+    summernote_fields = ("description",)
+
     extra = 1
+    fields = (
+        "id",
+        "name",
+        "description",
+        "upload_document",
+    )
+
 
 @admin.register(ResourceAndMediaSection)
 class ResourceAndMediaSectionAdmin(admin.ModelAdmin):
-    form = ResourceAndMediaSectionForm
+    form = ResourceAndMediaSectionForm  # use custom form here
+    list_display = (
+        "id",
+        "name",
+    )
     inlines = [ResourceAndMediaCategoryInline]
-
-
-
-
-# class ResourceAndMediaSectionForm(forms.ModelForm):
-#     class Meta:
-#         model = ResourceAndMediaSection
-#         fields = "__all__"
-#         widgets = {
-#             "name": forms.TextInput(attrs={"placeholder": "Enter Your Title"}),
-#         }
-
-
-# class ResourceAndMediaCategoryInline(admin.TabularInline):
-#     model = ResourceAndMediaCategory
-#     extra = 1
-#     fields = (
-#         "id",
-#         "name",
-#         "description",
-#         "upload_document",
-#     )
-
-
-# @admin.register(ResourceAndMediaSection)
-# class ResourceAndMediaSectionAdmin(admin.ModelAdmin):
-#     form = ResourceAndMediaSection  # use custom form here
-#     list_display = (
-#         "id",
-#         "name",
-#     )
-#     inlines = [ResourceAndMediaCategory]
