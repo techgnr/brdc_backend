@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters as drf_filters
 from rest_framework.viewsets import ModelViewSet
 
-from brdc.filters import AboutSectionFilter
+from brdc.filters import AboutSectionFilter, MilestoneFilter
 from brdc.models import (
     AboutSection,
     Album,
@@ -49,6 +49,14 @@ class CarouselViewSet(ModelViewSet):
 class MilestonesViewSet(ModelViewSet):
     queryset = Milestone.objects.all()
     serializer_class = MilestonesSerializer
+    filter_backends = [DjangoFilterBackend, drf_filters.OrderingFilter]
+    filterset_class = MilestoneFilter
+
+    search_fields = [
+        "is_reached",
+        "is_statistics",
+        # "created_at",
+    ]
 
 
 class AlbumViewSet(ModelViewSet):

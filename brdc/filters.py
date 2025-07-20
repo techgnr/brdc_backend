@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from brdc.models import AboutSection
+from brdc.models import AboutSection, Milestone
 
 
 class AboutSectionFilter(filters.FilterSet):
@@ -12,4 +12,11 @@ class AboutSectionFilter(filters.FilterSet):
         fields = []
 
 
+class MilestoneFilter(filters.FilterSet):
+    is_reached = filters.BooleanFilter(field_name="is_reached")
+    is_statistics = filters.BooleanFilter(field_name="is_statistics")
+    # created_at = filters.DateTimeFilter(field_name="created_at")
 
+    class Meta:
+        model = Milestone
+        fields = []

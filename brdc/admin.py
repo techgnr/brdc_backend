@@ -50,7 +50,7 @@ class AlbumAdmin(admin.ModelAdmin):
 
 @admin.register(Milestone)
 class MilestonesAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "count"]
+    list_display = ["id", "name", "description", "count", "is_reached", "is_statistics"]
 
 
 @admin.register(ContactUs)
