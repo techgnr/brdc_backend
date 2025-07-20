@@ -49,7 +49,7 @@ class CarouselSerilaizer(serializers.ModelSerializer):
 class MilestonesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Milestone
-        fields = ["id", "name", "count", "is_reached", "is_statistics"]
+        fields = ["id", "name", "description", "count", "is_reached", "is_statistics"]
 
 
 class AlbumImageSerializer(serializers.ModelSerializer):
