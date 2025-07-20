@@ -130,12 +130,11 @@ class CarrierSerializer(serializers.ModelSerializer):
 class AboutCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutCategory
-        fields = ["id", "description"]
+        fields = ["id", "intro","description"]
 
 
 class AboutSectionSerializer(serializers.ModelSerializer):
     about_categories = AboutCategorySerializer(many=False)
-
 
     class Meta:
         model = AboutSection
@@ -152,15 +151,22 @@ class AboutSectionSerializer(serializers.ModelSerializer):
 class ResourceAndMediaCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceAndMediaCategory
-        fields = ["id", "name", "description", "upload_document", "created_at"]
+        fields = [
+            "id",
+            "name",
+            "description",
+            "upload_document",
+            "created_at",
+        ]
 
 
 class ResourceAndMediaSectionSerializer(serializers.ModelSerializer):
-    categories = ResourceAndMediaCategorySerializer(many=True)
+    about_categories = ResourceAndMediaCategorySerializer(many=True, read_only=True)
 
     class Meta:
         model = ResourceAndMediaSection
         fields = [
             "id",
             "name",
+            "about_categories",
         ]

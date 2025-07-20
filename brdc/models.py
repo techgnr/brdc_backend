@@ -144,7 +144,7 @@ class AboutCategory(models.Model):
     Dyamic dropdown thats way we make this
 
     """
-
+    intro = models.CharField(max_length=255,default="")
     description = models.TextField()
     # Change from ForeignKey to OneToOneField
 
@@ -177,8 +177,9 @@ class ResourceAndMediaCategory(models.Model):
     about = models.ForeignKey(
         ResourceAndMediaSection,
         on_delete=models.CASCADE,
-        related_name="resource_categories",
+        related_name="about_categories",
     )
+
 
     class Meta:
         verbose_name_plural = "ResourceAndMedia Categories"
