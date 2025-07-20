@@ -113,4 +113,4 @@ class ResourceAndMediaSectionViewSet(ModelViewSet):
     #     # "created_at",
     # ]
     # ordering_fields = ["created_at"]
-    ordering = ["-created_at"]  # default ordering: newest first
+    # ordering = ["-created_at"]  # default ordering: newest first
