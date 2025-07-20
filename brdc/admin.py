@@ -13,11 +13,13 @@ from brdc.models import (
     CarouselItem,
     Carrier,
     ContactUs,
+    Events,
     Milestone,
     Network,
+    NewsAndNotice,
     PopUp,
-    ResourceAndMediaCategory,
-    ResourceAndMediaSection,
+    PublicationAndDocuments,
+    SucessStories,
     Team,
     VideoGallery,
 )
@@ -133,33 +135,29 @@ class VideoGalleryAdmin(admin.ModelAdmin):
     list_display = ["id", "title", "video_link"]
 
 
-class ResourceAndMediaSectionForm(forms.ModelForm):
-    class Meta:
-        model = ResourceAndMediaSection
-        fields = "__all__"
-        widgets = {
-            "name": forms.TextInput(attrs={"placeholder": "Enter Your Title"}),
-        }
+@admin.register(NewsAndNotice)
+class NewsAndNoticeAdmin(admin.ModelAdmin):
+    list_display = ["id", "title", "attachement", "created_at"]
 
 
-class ResourceAndMediaCategoryInline(SummernoteInlineModelAdmin, admin.StackedInline):
-    model = ResourceAndMediaCategory
-    summernote_fields = ("description",)
+@admin.register(Events)
+class EventsAdmin(admin.ModelAdmin):
+    list_display = ["id", "title", "image", "description", "created_at"]
 
-    extra = 1
-    fields = (
+
+@admin.register(SucessStories)
+class SucessStoriesAdmin(admin.ModelAdmin):
+    list_display = [
         "id",
-        "name",
+        "title",
+        "sub_title",
+        "image",
         "description",
-        "upload_document",
-    )
+        "author",
+        "created_at",
+    ]
 
 
-@admin.register(ResourceAndMediaSection)
-class ResourceAndMediaSectionAdmin(admin.ModelAdmin):
-    form = ResourceAndMediaSectionForm  # use custom form here
-    list_display = (
-        "id",
-        "name",
-    )
-    inlines = [ResourceAndMediaCategoryInline]
+@admin.register(PublicationAndDocuments)
+class PublicationAndDocumentsAdmin(admin.ModelAdmin):
+    list_display = ["id", "title", "attchments", "created_at"]

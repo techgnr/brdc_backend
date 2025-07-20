@@ -144,7 +144,8 @@ class AboutCategory(models.Model):
     Dyamic dropdown thats way we make this
 
     """
-    intro = models.CharField(max_length=255,default="")
+
+    intro = models.CharField(max_length=255, default="")
     description = models.TextField()
     # Change from ForeignKey to OneToOneField
 
@@ -156,30 +157,44 @@ class AboutCategory(models.Model):
         verbose_name_plural = "About Us Categories"
 
 
-class ResourceAndMediaSection(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name_plural = "ResourceAndMedia Sections"
-
-
-class ResourceAndMediaCategory(models.Model):
-    """
-    Dyamic dropdown thats way we make this
-
-    """
-
-    name = models.CharField(max_length=255)
-    description = models.TextField()
+class NewsAndNotice(models.Model):
+    title = models.CharField(max_length=255)
+    attachement = models.FileField(upload_to="news_and_notices/")
     created_at = models.DateTimeField(auto_now_add=True)
-    upload_document = models.FileField(upload_to="resource_and_media/")
-    about = models.ForeignKey(
-        ResourceAndMediaSection,
-        on_delete=models.CASCADE,
-        related_name="about_categories",
-    )
-
 
     class Meta:
-        verbose_name_plural = "ResourceAndMedia Categories"
+        verbose_name_plural = "News and Notices"
+
+
+class Events(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.FileField(upload_to="news_and_notices/")
+
+    description = models.TextField()  # html
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Events"
+
+
+class SucessStories(models.Model):
+    title = models.CharField(max_length=255)
+    sub_title = models.CharField(max_length=255)
+    image = models.FileField(upload_to="news_and_notices/")
+
+    description = models.TextField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Success Stories"
+
+
+class PublicationAndDocuments(models.Model):
+    title = models.CharField(max_length=255)
+    attchments = models.FileField(upload_to="news_and_notices/")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Publication and Documents"

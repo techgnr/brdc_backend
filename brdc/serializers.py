@@ -10,11 +10,13 @@ from brdc.models import (
     CarouselItem,
     Carrier,
     ContactUs,
+    Events,
     Milestone,
     Network,
+    NewsAndNotice,
     PopUp,
-    ResourceAndMediaCategory,
-    ResourceAndMediaSection,
+    PublicationAndDocuments,
+    SucessStories,
     Team,
     VideoGallery,
 )
@@ -130,7 +132,7 @@ class CarrierSerializer(serializers.ModelSerializer):
 class AboutCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutCategory
-        fields = ["id", "intro","description"]
+        fields = ["id", "intro", "description"]
 
 
 class AboutSectionSerializer(serializers.ModelSerializer):
@@ -148,25 +150,33 @@ class AboutSectionSerializer(serializers.ModelSerializer):
         ]
 
 
-class ResourceAndMediaCategorySerializer(serializers.ModelSerializer):
+class NewsAndNoticeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ResourceAndMediaCategory
+        model = NewsAndNotice
+        fields = ["id", "title", "attachement", "created_at"]
+
+
+class EventsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Events
+        fields = ["id", "title", "image", "description", "created_at"]
+
+
+class SucessStoriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SucessStories
         fields = [
             "id",
-            "name",
+            "title",
+            "sub_title",
+            "image",
             "description",
-            "upload_document",
+            "author",
             "created_at",
         ]
 
 
-class ResourceAndMediaSectionSerializer(serializers.ModelSerializer):
-    about_categories = ResourceAndMediaCategorySerializer(many=True, read_only=True)
-
+class PublicationAndDocumentsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ResourceAndMediaSection
-        fields = [
-            "id",
-            "name",
-            "about_categories",
-        ]
+        model = PublicationAndDocuments
+        fields = ["id", "title", "attchments", "created_at"]
