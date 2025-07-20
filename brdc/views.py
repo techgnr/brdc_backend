@@ -10,10 +10,13 @@ from brdc.models import (
     Carousel,
     Carrier,
     ContactUs,
+    Events,
     Milestone,
     Network,
+    NewsAndNotice,
     PopUp,
-    ResourceAndMediaSection,
+    PublicationAndDocuments,
+    SucessStories,
     Team,
     VideoGallery,
 )
@@ -24,10 +27,13 @@ from brdc.serializers import (
     CarouselSerilaizer,
     CarrierSerializer,
     ContactUsSerializer,
+    EventsSerializer,
     MilestonesSerializer,
     NetworkSerializer,
+    NewsAndNoticeSerializer,
     PopUpSerializer,
-    ResourceAndMediaCategorySerializer,
+    PublicationAndDocumentsSerializer,
+    SucessStoriesSerializer,
     TeamSerializer,
     VideoGallerySerializer,
 )
@@ -101,16 +107,21 @@ class AboutSectionViewSet(ModelViewSet):
     # ordering = ["-created_at"]  # default ordering: newest first
 
 
-class ResourceAndMediaSectionViewSet(ModelViewSet):
-    queryset = ResourceAndMediaSection.objects.all()
-    serializer_class = ResourceAndMediaCategorySerializer
-    # filter_backends = [DjangoFilterBackend, drf_filters.OrderingFilter]
-    # filterset_class = AboutSectionFilter
+class NewsAndNoticeViewSet(ModelViewSet):
+    queryset = NewsAndNotice.objects.all()
+    serializer_class = NewsAndNoticeSerializer
 
-    # search_fields = [
-    #     "is_who_we_are",
-    #     "is_what_we_do",
-    #     # "created_at",
-    # ]
-    # ordering_fields = ["created_at"]
-    # ordering = ["-created_at"]  # default ordering: newest first
+
+class EventsViewSet(ModelViewSet):
+    queryset = Events.objects.all()
+    serializer_class = EventsSerializer
+
+
+class SucessStoriesViewSet(ModelViewSet):
+    queryset = SucessStories.objects.all()
+    serializer_class = SucessStoriesSerializer
+
+
+class PublicationAndDocumentsViewSet(ModelViewSet):
+    queryset = PublicationAndDocuments.objects.all()
+    serializer_class = PublicationAndDocumentsSerializer

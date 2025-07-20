@@ -19,8 +19,11 @@ router.register("blogs", views.BlogViewSet)
 router.register("teams", views.TeamViewSet)
 router.register("videolink", views.VideoGallerySet)
 router.register("aboutsection", views.AboutSectionViewSet)
-router.register("resourceandmediasection", views.ResourceAndMediaSectionViewSet)
 router.register("carrier", views.CarrierViewSet)
 router.register("network", views.NetworkViewSet)
+router.register("newsandnotice", views.NewsAndNoticeViewSet)
+router.register("sucessstories", views.SucessStoriesViewSet)
+router.register("publicationanddocuments", views.PublicationAndDocumentsViewSet)
+router.register("events", views.EventsViewSet)
 
 urlpatterns = router.urls
