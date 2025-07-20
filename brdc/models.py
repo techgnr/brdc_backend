@@ -1,12 +1,6 @@
 from django.conf import settings
 from django.db import models
 
-
-class CarouselButton(models.Model):
-    name = models.CharField(max_length=255)
-    link = models.CharField(max_length=255)
-
-
 # Create your models here.
 
 
@@ -31,18 +25,12 @@ class CarouselItem(models.Model):
     secondary_button_link = models.CharField(max_length=255, blank=True, null=True)
 
 
-class Facility(models.Model):
-    name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="facilities/")
-    description = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "Facilities"
-
-
 class Milestone(models.Model):
     name = models.CharField(max_length=100)
     count = models.IntegerField()
+    description = models.TextField()
+    is_reached = models.BooleanField(default=False)
+    is_statistics = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Milestones"
@@ -76,7 +64,6 @@ class VideoGallery(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
-    # content = RichTextField()
     content = models.TextField()
     thumbnail = models.ImageField(upload_to="blog/thumbnails")
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
@@ -85,17 +72,6 @@ class Blog(models.Model):
 
     class Meta:
         verbose_name_plural = "Blogs"
-
-
-class UserReview(models.Model):
-    name = models.CharField(max_length=255)
-    profession = models.CharField(max_length=255)
-    description = models.TextField()
-    image = models.ImageField(upload_to="review/")
-    review = models.CharField(max_length=200)
-
-    class Meta:
-        verbose_name_plural = "User Reviews"
 
 
 class ContactUs(models.Model):
@@ -123,129 +99,86 @@ class PopUp(models.Model):
         verbose_name_plural = "Important Notice"
 
 
-class CampusChiefMessage(models.Model):
-    heading = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    author = models.CharField(max_length=255)
-    image = models.ImageField(upload_to="campus_chief_message/")
-
-    class Meta:
-        verbose_name_plural = "Campus Chief Message"
-
-
-class Courses(models.Model):
-    name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to="courses/")
-    description = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "Courses"
-
-
-class Testimonial(models.Model):
-    name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to="testimonials/")
-    description = models.TextField()
-    position = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name_plural = "Testimonials-Reviews"
-
-
-class Suggestion(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone_no = models.CharField(max_length=15, blank=True, null=True)
-    description = models.TextField()
-
-    class Meta:
-        verbose_name_plural = "Suggestions"
-
-
 class Team(models.Model):
     name = models.CharField(max_length=255)
     position = models.CharField(max_length=255)
-    service = models.CharField(max_length=255, null=True, blank=True)
+    description = models.CharField(max_length=300, null=True, blank=True)
     image = models.ImageField(upload_to="team/")
-    is_management = models.BooleanField(default=False)
+    is_bod_team = models.BooleanField(default=False)
     is_administrative = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_advisor = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Team"
 
 
-class OnlineAdmission(models.Model):
-    link = models.URLField()
-    title = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name_plural = "Online Admission"
-
-
-# here we use the implementation of the realtionship in the django project of the school
-
-
-class CampusBatch(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Campus Batches"
-
-
-class Student(models.Model):
+class Network(models.Model):
     name = models.CharField(max_length=255)
-    percentage = models.FloatField()
-    image = models.ImageField(upload_to="students/")
-    slc_batch = models.ForeignKey(
-        CampusBatch, related_name="students", on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return self.name
+    image = models.ImageField(upload_to="sponsors/")
 
     class Meta:
-        verbose_name_plural = "Students"
+        verbose_name_plural = "Our Networks"
 
 
-class AboutCampus(models.Model):
-    title = models.CharField(max_length=255)
-    # description = RichTextField() LTER IN PRODUCTION RIGHT
+class Carrier(models.Model):
+    name = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to="about_school/")
+    upload_document = models.FileField(upload_to="resource_and_media/")
 
     class Meta:
-        verbose_name_plural = "About Campus"
+        verbose_name_plural = "Carriers"
 
 
-class Download(models.Model):
+class AboutSection(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    is_curriculum = models.BooleanField(default=False)
-    is_report = models.BooleanField(default=False)
-    is_form = models.BooleanField(default=False)
-    is_notice = models.BooleanField(default=False)
-    is_result = models.BooleanField(default=False)
-    created_at = models.TimeField(auto_now=True)
+    image = models.ImageField()
+    is_who_we_are = models.BooleanField(default=False)
+    is_what_we_do = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name_plural = "Downloads"
+        verbose_name_plural = "About Sections"
 
 
-class DownloadCategory(models.Model):
-    # want one to many field
-    title = models.CharField(max_length=255)
-    dowload = models.ForeignKey(
-        Download, on_delete=models.CASCADE, related_name="categories"
+class AboutCategory(models.Model):
+    """
+    Dyamic dropdown thats way we make this
+
+    """
+
+    description = models.TextField()
+    # Change from ForeignKey to OneToOneField
+
+    about = models.OneToOneField(
+        AboutSection, on_delete=models.CASCADE, related_name="about_categories"
     )
-    attachment = models.FileField(upload_to="downloads/")
-    created_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = "Download Categories"
-        ordering = ["-created_at"]  # DESCENDING order by created_at
+        verbose_name_plural = "About Us Categories"
+
+
+class ResourceAndMediaSection(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "ResourceAndMedia Sections"
+
+
+class ResourceAndMediaCategory(models.Model):
+    """
+    Dyamic dropdown thats way we make this
+
+    """
+
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    upload_document = models.FileField(upload_to="resource_and_media/")
+    about = models.ForeignKey(
+        ResourceAndMediaSection,
+        on_delete=models.CASCADE,
+        related_name="resource_categories",
+    )
+
+    class Meta:
+        verbose_name_plural = "ResourceAndMedia Categories"
