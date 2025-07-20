@@ -105,7 +105,7 @@ class ResourceAndMediaSectionViewSet(ModelViewSet):
     queryset = ResourceAndMediaSection.objects.all()
     serializer_class = ResourceAndMediaCategorySerializer
     filter_backends = [DjangoFilterBackend, drf_filters.OrderingFilter]
-    filterset_class = AboutSectionFilter
+    # filterset_class = AboutSectionFilter
 
     # search_fields = [
     #     "is_who_we_are",

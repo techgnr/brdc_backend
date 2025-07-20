@@ -136,6 +136,7 @@ class AboutCategorySerializer(serializers.ModelSerializer):
 class AboutSectionSerializer(serializers.ModelSerializer):
     categories = AboutCategorySerializer(many=False)
 
+
     class Meta:
         model = AboutSection
         fields = [
@@ -144,6 +145,7 @@ class AboutSectionSerializer(serializers.ModelSerializer):
             "image",
             "is_who_we_are",
             "is_what_we_do",
+            "categories",
         ]
 
 
