@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters as drf_filters
 from rest_framework.viewsets import ModelViewSet
 
-from brdc.filters import AboutSectionFilter, MilestoneFilter
+from brdc.filters import AboutSectionFilter, MilestoneFilter, TeamFilter
 from brdc.models import (
     AboutSection,
     Album,
@@ -83,6 +83,15 @@ class PopUpViewSet(ModelViewSet):
 class TeamViewSet(ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
+
+    filter_backends = [DjangoFilterBackend, drf_filters.OrderingFilter]
+    filterset_class = TeamFilter
+
+    search_fields = [
+        "is_bod_team",
+        "is_administrative",
+        "is_adivisor",
+    ]
 
 
 class BlogViewSet(ModelViewSet):

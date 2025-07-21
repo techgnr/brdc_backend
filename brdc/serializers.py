@@ -127,7 +127,7 @@ class NetworkSerializer(serializers.ModelSerializer):
 class CarrierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carrier
-        fields = ["id", "name", "description", "upload_document"]
+        fields = ["id", "name", "description", "upload_document", "created_at"]
 
 
 class AboutCategorySerializer(serializers.ModelSerializer):
