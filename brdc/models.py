@@ -106,6 +106,7 @@ class Team(models.Model):
     image = models.ImageField(upload_to="team/")
     is_bod_team = models.BooleanField(default=False)
     is_administrative = models.BooleanField(default=False)
+    is_adivisor = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Team"

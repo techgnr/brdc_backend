@@ -114,6 +114,7 @@ class TeamSerializer(serializers.ModelSerializer):
             "image",
             "is_bod_team",
             "is_administrative",
+            "is_adivisor",
         ]
 
 

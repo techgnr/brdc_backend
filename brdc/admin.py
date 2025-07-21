@@ -82,6 +82,7 @@ class TeamAdmin(admin.ModelAdmin):
         "image",
         "is_bod_team",
         "is_administrative",
+        "is_adivisor",
     ]
 
 
