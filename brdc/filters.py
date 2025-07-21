@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from brdc.models import AboutSection, Milestone
+from brdc.models import AboutSection, Milestone, Team
 
 
 class AboutSectionFilter(filters.FilterSet):
@@ -19,4 +19,15 @@ class MilestoneFilter(filters.FilterSet):
 
     class Meta:
         model = Milestone
+        fields = []
+
+
+class TeamFilter(filters.FilterSet):
+    is_bod_team = filters.BooleanFilter(field_name="is_bod_team")
+    is_administrative = filters.BooleanFilter(field_name="is_administrative")
+    is_adivisor = filters.BooleanFilter(field_name="is_adivisor")
+    # created_at = filters.DateTimeFilter(field_name="created_at")
+
+    class Meta:
+        model = Team
         fields = []

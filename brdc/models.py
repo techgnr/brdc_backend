@@ -124,6 +124,7 @@ class Carrier(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     upload_document = models.FileField(upload_to="resource_and_media/")
+    created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True)
 
     class Meta:
         verbose_name_plural = "Carriers"

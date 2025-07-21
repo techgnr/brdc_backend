@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib import admin
-from django_summernote.admin import SummernoteModelAdmin
-from django_summernote.admin import SummernoteInlineModelAdmin  # ✅
+from django_summernote.admin import (
+    SummernoteInlineModelAdmin,  # ✅
+    SummernoteModelAdmin,
+)
 
 from brdc.models import (
     AboutCategory,
@@ -93,7 +95,7 @@ class NetworkAdmin(admin.ModelAdmin):
 
 @admin.register(Carrier)
 class CarrierAdmin(SummernoteModelAdmin):
-    list_display = ["id", "name", "description", "upload_document"]
+    list_display = ["id", "name", "description", "upload_document", "created_at"]
 
 
 @admin.register(Blog)
