@@ -16,7 +16,7 @@ SECRET_KEY = "django-insecure-zzmudtdwitbsymls!v2d^zp3@b#sy134h9!!i_l8ncsdi!1hk-
 DEBUG = True
 
 # ALLOWED_HOSTS = ["tsc.tripurasundaricampus.edu.np"]
-ALLOWED_HOSTS = ["brdcadmin.brdc.com.np"]
+ALLOWED_HOSTS = ["brdc.brdc.com.np"]
 
 # Application definition
 
