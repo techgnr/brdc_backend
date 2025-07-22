@@ -200,3 +200,11 @@ class PublicationAndDocuments(models.Model):
 
     class Meta:
         verbose_name_plural = "Publication and Documents"
+
+
+class TermsAndConditions(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Terms and Conditions"

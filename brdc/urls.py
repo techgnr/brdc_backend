@@ -25,5 +25,6 @@ router.register("newsandnotice", views.NewsAndNoticeViewSet)
 router.register("sucessstories", views.SucessStoriesViewSet)
 router.register("publicationanddocuments", views.PublicationAndDocumentsViewSet)
 router.register("events", views.EventsViewSet)
+router.register("terms", views.TermsAndConditionsViewSet)
 
 urlpatterns = router.urls

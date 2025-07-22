@@ -18,6 +18,7 @@ from brdc.models import (
     PublicationAndDocuments,
     SucessStories,
     Team,
+    TermsAndConditions,
     VideoGallery,
 )
 from brdc.serializers import (
@@ -35,6 +36,7 @@ from brdc.serializers import (
     PublicationAndDocumentsSerializer,
     SucessStoriesSerializer,
     TeamSerializer,
+    TermsAndConditionsSerializer,
     VideoGallerySerializer,
 )
 
@@ -142,3 +144,8 @@ class SucessStoriesViewSet(ModelViewSet):
 class PublicationAndDocumentsViewSet(ModelViewSet):
     queryset = PublicationAndDocuments.objects.all()
     serializer_class = PublicationAndDocumentsSerializer
+
+
+class TermsAndConditionsViewSet(ModelViewSet):
+    queryset = TermsAndConditions.objects.all()
+    serializer_class = TermsAndConditionsSerializer

@@ -23,6 +23,7 @@ from brdc.models import (
     PublicationAndDocuments,
     SucessStories,
     Team,
+    TermsAndConditions,
     VideoGallery,
 )
 
@@ -164,3 +165,9 @@ class SucessStoriesAdmin(admin.ModelAdmin):
 @admin.register(PublicationAndDocuments)
 class PublicationAndDocumentsAdmin(admin.ModelAdmin):
     list_display = ["id", "title", "attchments", "created_at"]
+
+
+@admin.register(TermsAndConditions)
+class TermsAndConditionsAdmin(SummernoteModelAdmin):
+    summernote_fields = ("content",)
+    list_display = ["id", "title", "content"]
