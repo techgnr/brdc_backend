@@ -83,9 +83,9 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tripuras_brdc',
-        'USER': 'tripuras_brdc',
-        'PASSWORD': 'khadka@2082',
+        'NAME': 'brdccomn_brdc_database',
+        'USER': 'brdccomn_brdc',
+        'PASSWORD': 'brdc@2082',
         'HOST':'192.250.235.43',
         'PORT':'3306',
     }
