@@ -150,6 +150,7 @@ AUTH_USER_MODEL = "core.User"
 CORS_ALLOWED_ORIGINS = [
     "https://tripurasundaricampus.edu.np",  # Frontend URL
     "http://localhost:5173",
+    "https://brdcwe.netlify.app"
 ]
 
 try:
