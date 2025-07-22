@@ -13,10 +13,11 @@ SECRET_KEY = "django-insecure-zzmudtdwitbsymls!v2d^zp3@b#sy134h9!!i_l8ncsdi!1hk-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ["tsc.tripurasundaricampus.edu.np"]
 ALLOWED_HOSTS = ["brdc.brdc.com.np"]
+# ALLOWED_HOSTS = ["brdc.brdc.com.np", "127.0.0.1"]
 
 # Application definition
 
@@ -148,9 +149,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "core.User"
 
 CORS_ALLOWED_ORIGINS = [
-    "https://tripurasundaricampus.edu.np",  # Frontend URL
+    "https://brdc.com.np",  # Frontend URL
     "http://localhost:5173",
-    "https://brdcwe.netlify.app"
+    "https://brdcwe.netlify.app",
 ]
 
 try:
@@ -162,14 +163,15 @@ except ImportError:
 
 JAZZMIN_SETTINGS = {
     # Basic branding
-    "site_title": "TSCS Admin",
-    "site_header": "TSCS Admin",
-    "site_brand": "TSCS Admin",
-    "welcome_sign": "Welcome to Tripura Sundari Campus, Achham",
-    "copyright": "© 2025 Tripura Sundari Campus,Achham",
+    "site_title": "BRDC Admin",
+    "site_header": "BRDC Admin",
+    "site_brand": "BRDC Admin",
+    "welcome_sign": "Welcome to BRDC Admin",
+    "copyright": "© 2025 BRDC",
     ## Logo & favicon
-    "site_logo": "images/tsc_logo1.png",  # static/images/logo.png
-    "login_logo": "images/tsc_logo1.png",
+    # "site_logo": "images/brdc.jpeg",  # static/images/logo.png
+    # "login_logo": "images/brdc.jpeg",
+    # "login_logo": "BRDC",
     "login_logo_dark": "images/logo-dark.png",  # optional dark mode logo
     "site_icon": "images/favicon.png",  # optional favicon (32x32 recommended)
     "site_logo_classes": "img-circle",  # CSS class for logo style
