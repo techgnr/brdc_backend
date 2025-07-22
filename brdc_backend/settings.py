@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'brdccomn_brdc_database',
         'USER': 'brdccomn_brdc',
         'PASSWORD': 'brdc@2082',
-        'HOST':'192.250.235.43',
+        'HOST':'190.92.174.35',
         'PORT':'3306',
     }
 }
