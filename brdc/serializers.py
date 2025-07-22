@@ -18,6 +18,7 @@ from brdc.models import (
     PublicationAndDocuments,
     SucessStories,
     Team,
+    TermsAndConditions,
     VideoGallery,
 )
 
@@ -181,3 +182,9 @@ class PublicationAndDocumentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PublicationAndDocuments
         fields = ["id", "title", "attchments", "created_at"]
+
+
+class TermsAndConditionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TermsAndConditions
+        fields = ["id", "title", "content"]
